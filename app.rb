@@ -44,7 +44,7 @@ post "/*" do
 								headers: {
 									"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2",
 									"Accept" => "application/json"
-								}
+								})
 	
 		puts response	
 		data=JSON.parse(response)

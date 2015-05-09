@@ -40,9 +40,9 @@ post "/*" do
 		puts "---------------------------------------------------------------------------------------------"
 		# Call jamiembrown-tweet-sentiment-analysis test
 		response = RestClient.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2&text=#{text}", 
-															:accept => :json)
+															"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2", 
+															"Accept" => "application/json")
 	
-
 
 		data=JSON.parse(data)
 

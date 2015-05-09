@@ -40,9 +40,9 @@ post "/*" do
 		puts text
 		puts "---------------------------------------------------------------------------------------------"
 		# Call jamiembrown-tweet-sentiment-analysis test
-		sentiment = Unirest.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}", 
+		sentiment = Unirest.get("https://www.tweetsentimentapi.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}", 
 								headers: {
-									"X-Mashape-Key" => "bXqpAUtP8JmshtQit0qaPOPNeRIlp1V9vqLjsn4aTlgIEl8wSn",
+									# "X-Mashape-Key" => "bXqpAUtP8JmshtQit0qaPOPNeRIlp1V9vqLjsn4aTlgIEl8wSn",
 									"Accept" => "application/json"
 								})
 	

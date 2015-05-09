@@ -33,7 +33,7 @@ post "/*" do
 	# else tke any input from the message and perform sentiment analysis
 	else 
 	
-
+	
 		# Call jamiembrown-tweet-sentiment-analysis test
 		text = incoming_sms.delete(",.!?").gsub(" ", "+")
 		puts "-----------------------------------TEXT TO ANALYZE ------------------------------------------"
@@ -42,7 +42,7 @@ post "/*" do
 		# Call jamiembrown-tweet-sentiment-analysis test
 		sentiment = Unirest.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}", 
 								headers: {
-									"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2",
+									"X-Mashape-Key" => "bXqpAUtP8JmshtQit0qaPOPNeRIlp1V9vqLjsn4aTlgIEl8wSn",
 									"Accept" => "application/json"
 								})
 	

@@ -46,8 +46,8 @@ post "/*" do
 									"Accept" => "application/json"
 								})
 	
-		# puts response	
-		data=JSON.parse(response)
+		puts response.body
+		data=response.body
 
 		# check if error 
 		if data["error"]

@@ -2,10 +2,10 @@ require 'sinatra'
 require 'uri'
 
 #setup RestClient caching backed by Memcachier
-RestClient.enable Rack::Cache,
-:verbose      => true,
-:metastore   => Dalli::Client.new,
-:entitystore => Dalli::Client.new
+# RestClient.enable Rack::Cache,
+# :verbose      => true,
+# :metastore   => Dalli::Client.new,
+# :entitystore => Dalli::Client.new
 
 def get_or_post(path, opts={}, &block)
 	get(path, opts, &block)

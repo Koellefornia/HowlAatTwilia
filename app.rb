@@ -31,11 +31,15 @@ post "/*" do
 	
 
 		# Call jamiembrown-tweet-sentiment-analysis test
-		response = Unirest.get "https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=egeqgqgq1&text=I+love+Mashape",
-		headers:{
-			"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2",
-			"Accept" => "application/json"
-		}
+		text = text.delete(",.!?").gsub(" ", "+")
+		puts "---------------------------------------------------------------------------------------------"
+		puts text
+		puts "---------------------------------------------------------------------------------------------"
+		# Call jamiembrown-tweet-sentiment-analysis test
+		response = RestClient.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2&text=#{text}", 
+															:accept => :json)
+	
+
 
 		data=JSON.parse(data)
 

@@ -1,4 +1,4 @@
-Twilio-Bands-SMS
+TODO: Sentiment Analysis as a Twilio Service
 ================
 
 This is a [Twilio](http://www.twilio.com) demo that uses the Songick API to tell you about upcoming shows.

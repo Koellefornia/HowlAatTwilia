@@ -42,14 +42,14 @@ post "/*" do
 		url = "https://www.tweetsentimentapi.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}"		
 		p url
 		# Call jamiembrown-tweet-sentiment-analysis test
-		sentiment = Unirest.get(url) 
+		sentiment = RestClient.get(url, :accept => :json) 
 								# headers: {
 									# "X-Mashape-Key" => "bXqpAUtP8JmshtQit0qaPOPNeRIlp1V9vqLjsn4aTlgIEl8wSn",
 									# "Accept" => "application/json"
 								# })
 	
-		puts sentiment.body
-		data=sentiment.body
+		puts sentiment
+		data=JSON.parse(sentiment)
 
 		# check if error 
 		if data["message"]

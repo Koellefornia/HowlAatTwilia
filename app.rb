@@ -40,14 +40,14 @@ post "/*" do
 		puts text
 		puts "---------------------------------------------------------------------------------------------"
 		# Call jamiembrown-tweet-sentiment-analysis test
-		response = Unirest.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2&text=#{text}", 
+		sentiment = Unirest.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2&text=#{text}", 
 								headers: {
 									"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2",
 									"Accept" => "application/json"
 								})
 	
-		puts response.body
-		data=response.body
+		puts sentiment.body
+		data=sentiment.body
 
 		# check if error 
 		if data["error"]
@@ -72,6 +72,8 @@ post "/*" do
 
 			# build Twilio response
 			response = Twilio::TwiML::Response.new  { |r| r.Sms "Your sentiment analysis:\n#{feedback}" }
+		else
+			response = Twilio::TwiML::Response.new  { |r| r.Sms "Call to api failed, please view heroku logs" }
 		end
 	end
 	# return valid TwiML back to Twilio

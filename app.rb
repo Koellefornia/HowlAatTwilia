@@ -1,9 +1,10 @@
 require 'sinatra'
 require 'uri'
+require 'rest-client'
 
 #setup RestClient caching backed by Memcachier
-# RestClient.enable Rack::Cache,
-# :verbose      => true,
+ # RestClient.enable Rack::Cache,
+ # :verbose      => true
 # :metastore   => Dalli::Client.new,
 # :entitystore => Dalli::Client.new
 

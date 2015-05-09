@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'uri'
+require 'unirest'
 # require 'rest-client'
 
 #setup RestClient caching backed by Memcachier

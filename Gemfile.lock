@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.8)
     builder (3.2.2)
     daemons (1.2.2)
     dalli (2.7.4)
@@ -44,6 +45,10 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
+    unirest (1.0.8)
+      addressable
+      json
+      rest-client
 
 PLATFORMS
   ruby
@@ -59,3 +64,4 @@ DEPENDENCIES
   sinatra
   thin
   twilio-ruby
+  unirest

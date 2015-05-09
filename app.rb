@@ -1,12 +1,12 @@
 require 'sinatra'
 require 'uri'
-require 'rest-client'
+# require 'rest-client'
 
 #setup RestClient caching backed by Memcachier
-RestClient.enable Rack::Cache,
- :verbose      => true,
- :metastore   => Dalli::Client.new,
- :entitystore => Dalli::Client.new
+# RestClient.enable Rack::Cache,
+#  :verbose      => true,
+#  :metastore   => Dalli::Client.new,
+#  :entitystore => Dalli::Client.new
 
 def get_or_post(path, opts={}, &block)
 	get(path, opts, &block)
@@ -39,9 +39,11 @@ post "/*" do
 		puts text
 		puts "---------------------------------------------------------------------------------------------"
 		# Call jamiembrown-tweet-sentiment-analysis test
-		response = RestClient.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2&text=#{text}", 
-															"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2", 
-															"Accept" => "application/json")
+		response = Unirest.get("https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2&text=#{text}", 
+								headers: {
+									"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2",
+									"Accept" => "application/json"
+								}
 	
 
 		data=JSON.parse(data)

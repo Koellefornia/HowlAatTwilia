@@ -39,7 +39,7 @@ post "/*" do
 		puts "-----------------------------------TEXT TO ANALYZE ------------------------------------------"
 		puts text
 		puts "---------------------------------------------------------------------------------------------"
-		url = "https://www.tweetsentimentapi.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}"		
+		url = "http://www.tweetsentimentapi.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}"		
 		p url
 		# Call jamiembrown-tweet-sentiment-analysis test
 		sentiment = RestClient.get(url, :accept => :json) 

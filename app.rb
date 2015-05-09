@@ -22,7 +22,9 @@ post "/*" do
 
 	# take the body of the SMS and remove any spaces and make all lower case
 	incoming_sms = params["Body"].downcase
-
+	puts "-----------------------------------INCOMING TEXT --------------------------------------------"
+	puts incoming_sms
+	puts "---------------------------------------------------------------------------------------------"
 	#If they text help return a help message
 	if incoming_sms.include?("help")
 		response = Twilio::TwiML::Response.new  { |r| r.Sms "Welcome to Ask Twilia! Twilia lends you a neutral set of eyes to find out whats in that his last sms. In order to get her opnion of his sms, just forward his sms to Twilias phone." }
@@ -31,8 +33,8 @@ post "/*" do
 	
 
 		# Call jamiembrown-tweet-sentiment-analysis test
-		text = text.delete(",.!?").gsub(" ", "+")
-		puts "---------------------------------------------------------------------------------------------"
+		text = incoming_sms.delete(",.!?").gsub(" ", "+")
+		puts "-----------------------------------TEXT TO ANALYZE ------------------------------------------"
 		puts text
 		puts "---------------------------------------------------------------------------------------------"
 		# Call jamiembrown-tweet-sentiment-analysis test

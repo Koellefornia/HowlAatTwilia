@@ -33,18 +33,19 @@ post "/*" do
 	# else tke any input from the message and perform sentiment analysis
 	else 
 	
-	
+
 		# Call jamiembrown-tweet-sentiment-analysis test
 		text = incoming_sms.delete(",.!?").gsub(" ", "+")
 		puts "-----------------------------------TEXT TO ANALYZE ------------------------------------------"
 		puts text
 		puts "---------------------------------------------------------------------------------------------"
 		# Call jamiembrown-tweet-sentiment-analysis test
-		sentiment = Unirest.get("https://www.tweetsentimentapi.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}", 
-								headers: {
+		sentiment = Unirest.get("https://www.tweetsentimentapi.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}",
+														headers:{ "Accept" => "application/json" }) 
+								# headers: {
 									# "X-Mashape-Key" => "bXqpAUtP8JmshtQit0qaPOPNeRIlp1V9vqLjsn4aTlgIEl8wSn",
-									"Accept" => "application/json"
-								})
+									# "Accept" => "application/json"
+								# })
 	
 		puts sentiment.body
 		data=sentiment.body

@@ -1,11 +1,13 @@
 require 'sinatra'
 require 'uri'
+require 'unirest'
+# require 'rest-client'
 
 #setup RestClient caching backed by Memcachier
-RestClient.enable Rack::Cache,
-:verbose      => true,
-:metastore   => Dalli::Client.new,
-:entitystore => Dalli::Client.new
+# RestClient.enable Rack::Cache,
+#  :verbose      => true,
+#  :metastore   => Dalli::Client.new,
+#  :entitystore => Dalli::Client.new
 
 def get_or_post(path, opts={}, &block)
 	get(path, opts, &block)
@@ -22,7 +24,9 @@ post "/*" do
 
 	# take the body of the SMS and remove any spaces and make all lower case
 	incoming_sms = params["Body"].downcase
-
+	puts "-----------------------------------INCOMING TEXT --------------------------------------------"
+	puts incoming_sms
+	puts "---------------------------------------------------------------------------------------------"
 	#If they text help return a help message
 	if incoming_sms.include?("help")
 		response = Twilio::TwiML::Response.new  { |r| r.Sms "Welcome to Ask Twilia! Twilia lends you a neutral set of eyes to find out whats in that his last sms. In order to get her opnion of his sms, just forward his sms to Twilias phone." }
@@ -31,16 +35,25 @@ post "/*" do
 	
 
 		# Call jamiembrown-tweet-sentiment-analysis test
-		response = Unirest.get "https://jamiembrown-tweet-sentiment-analysis.p.mashape.com/api/?key=egeqgqgq1&text=I+love+Mashape",
-		headers:{
-			"X-Mashape-Key" => "WYEBGc4CCKmshOMt1uVwFNnkHpGCp1Zi1nijsnQLWCKx4OVnQ2",
-			"Accept" => "application/json"
-		}
-
-		data=JSON.parse(data)
+		text = incoming_sms.delete(",.!?").gsub(" ", "+")
+		puts "-----------------------------------TEXT TO ANALYZE ------------------------------------------"
+		puts text
+		puts "---------------------------------------------------------------------------------------------"
+		url = "http://www.tweetsentimentapi.com/api/?key=e63ad12c3bb8926b41465682b0e94c189b98ebb1&text=#{text}"		
+		p url
+		# Call jamiembrown-tweet-sentiment-analysis test
+		sentiment = RestClient::Request.execute(:url => url, :method => :get, :verify_ssl => false)
+								#RestClient.get(url, :accept => :json) 
+								# headers: {
+									# "X-Mashape-Key" => "bXqpAUtP8JmshtQit0qaPOPNeRIlp1V9vqLjsn4aTlgIEl8wSn",
+									# "Accept" => "application/json"
+								# })
+	
+		puts sentiment
+		data=JSON.parse(sentiment)
 
 		# check if error 
-		if data["error"]
+		if data["message"]
 			# retrieve the error message
 			response = Twilio::TwiML::Response.new  { |r| r.Sms data["message"] }
 		elsif data["sentiment"]
@@ -62,6 +75,8 @@ post "/*" do
 
 			# build Twilio response
 			response = Twilio::TwiML::Response.new  { |r| r.Sms "Your sentiment analysis:\n#{feedback}" }
+		else
+			response = Twilio::TwiML::Response.new  { |r| r.Sms "Call to api failed, please view heroku logs" }
 		end
 	end
 	# return valid TwiML back to Twilio

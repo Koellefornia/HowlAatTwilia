@@ -30,7 +30,7 @@ post "/*" do
 	#If they text help return a help message
 	if incoming_sms.include?("help")
 		response = Twilio::TwiML::Response.new  { |r| r.Sms "Welcome to Ask Twilia! Twilia lends you a neutral set of eyes to find out whats in that his last sms. In order to get her opnion of his sms, just forward his sms to Twilias phone." }
-	# else tke any input from the message and perform sentiment analysis
+	# else take any input from the message and perform sentiment analysis
 	else 
 	
 
@@ -61,20 +61,24 @@ post "/*" do
 			sentiment = data["sentiment"]
 			score = data["score"]
 
-			if(score <= -0.7)
+			if(score <= -1.0)
 				feedback = "Oh dear! That doesnt look good. I think he is just not that into you. Might be time for strategic withdrawal?"
-			elsif(score < 0.1)
-				feedback = "This is not very convincing or affectionate. Maybe another insight will help. Forward me another of his sms."
-			elsif(score >= 0.7)
-		    feedback = "Jackpot! Looks like someone has a good day and wants to share it with you! Gwan girl, you got this!"
-		  elsif(score > 0.1)
-		  	feedback = "I think he likes you. Is he just sweet or is there more. Lets see another of his sms!"
+			elsif(score < -0.5)
+				feedback = "This is not very convincing or affectionate. Is it worth the emotional roller coaster?"
+			elsif(score < -0.3)
+				feedback = "I am not sure what to make of this. Maybe another insight will help. Forward me another of his sms."
+		    elsif(score > 0.3)
+		  		feedback = "I think he likes you. Is he just sweet or is there more? Lets see another of his sms!"
+		  	elsif(score > 0.5)
+		  		feedback = "This sounds really promising. Keep the nice texting up and see where this is going!"
+		  	elsif(score >= 1.0)
+		    	feedback = "Jackpot! Looks like someone has a good day and wants to share it with you! Gwan girl, you got this!"
 			else
 				feedback = "\"If you're not in the game, you can't hit a home run.\" might be a bad Hoff quote, but are you in the game or not? I cant read too much into this. Can I please see another sms?"
 			end
 
 			# build Twilio response
-			response = Twilio::TwiML::Response.new  { |r| r.Sms "Your sentiment analysis:\n#{feedback}" }
+			response = Twilio::TwiML::Response.new  { |r| r.Sms "Twilia says:\n#{feedback}" }
 		else
 			response = Twilio::TwiML::Response.new  { |r| r.Sms "Call to api failed, please view heroku logs" }
 		end

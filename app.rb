@@ -78,7 +78,9 @@ post "/*" do
 			end
 
 			# build Twilio response
+<<<<<<< HEAD
 			response = Twilio::TwiML::Response.new  { |r| r.Sms "Twilia says:\n#{feedback}" }
+>>>>>>> 5c16e7222eb8df7e47e3d9aec9938cfc48bbc718
 		else
 			response = Twilio::TwiML::Response.new  { |r| r.Sms "Call to api failed, please view heroku logs" }
 		end

@@ -3,11 +3,6 @@ require 'uri'
 require 'unirest'
 # require 'rest-client'
 
-#setup RestClient caching backed by Memcachier
-# RestClient.enable Rack::Cache,
-#  :verbose      => true,
-#  :metastore   => Dalli::Client.new,
-#  :entitystore => Dalli::Client.new
 
 def get_or_post(path, opts={}, &block)
 	get(path, opts, &block)
@@ -78,9 +73,8 @@ post "/*" do
 			end
 
 			# build Twilio response
-<<<<<<< HEAD
+
 			response = Twilio::TwiML::Response.new  { |r| r.Sms "Twilia says:\n#{feedback}" }
->>>>>>> 5c16e7222eb8df7e47e3d9aec9938cfc48bbc718
 		else
 			response = Twilio::TwiML::Response.new  { |r| r.Sms "Call to api failed, please view heroku logs" }
 		end
